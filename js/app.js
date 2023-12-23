@@ -3,14 +3,16 @@
 const todoInput = document.querySelector('#todo-input');
 const todoBtn = document.querySelector('#todo-btn');
 const todoList = document.querySelector('.todo-list');
+const fileOption = document.querySelector('.filter-todo')
 
 
 // Event Listener
 todoBtn.addEventListener('click', addTodo);
-
+todoList.addEventListener('click', deleteCheck);
+fileOption.addEventListener('click', filterTodo);
 
 // Function
-function addTodo(event) {
+function addTodo(event) { 
     // prevent form from submitting
     event.preventDefault();
 
@@ -50,3 +52,27 @@ function addTodo(event) {
     // clear the input field (Todo Input value)
     todoInput.value = '';
 };
+
+function deleteCheck(e) {
+    const item = e.target;
+    if (item.classList[0] === "trash-btn") {
+        const todo = item.parentElement;
+        // remove animation
+        todo.classList.add("fall");
+        // todo.remove();
+
+        todo.addEventListener('transitionend', function() {
+            todo.remove();
+        })
+    }
+
+    if (item.classList[0] === "complete-btn") {
+        const todo = item.parentElement;
+        todo.classList.toggle('completed');
+    }
+};
+
+function filterTodo(e) {
+    const todos = todoList;
+    console.log(todos);
+}
